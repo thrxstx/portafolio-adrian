@@ -1,0 +1,196 @@
+---
+import { content } from "../data/content";
+
+const allItems = content.stack.items;
+const stackData = JSON.stringify(allItems);
+---
+
+<section
+  id="stack"
+  class="reveal"
+  style="padding: var(--spacing-stack-lg) var(--spacing-margin-desktop);"
+>
+  <div class="mx-auto" style="max-width: var(--spacing-container);">
+    <h2
+      class="section-label mb-10 text-sm font-medium tracking-[0.1em] uppercase"
+      style="font-family: var(--font-inter); color: var(--color-gold);"
+    >
+      <span data-lang="en">{content.stack.title.en}</span>
+      <span data-lang="es">{content.stack.title.es}</span>
+    </h2>
+    <div class="stack-track" id="stack-track">
+      {allItems.slice(0, 4).map((item) => (
+        <div class="stack-item" style="opacity: 1;">
+          <div class="stack-icon" data-tip={item.name} set:html={item.svg} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script set:html={`(function() {
+  var ITEMS_PER_BATCH = 4;
+  var INTERVAL = 4500;
+  var allItems = ${stackData};
+
+  var track = document.getElementById("stack-track");
+  if (!track) return;
+
+  var currentBatch = 0;
+  var intervalId;
+  var maxBatches = Math.ceil(allItems.length / ITEMS_PER_BATCH);
+
+  function getBatch(index) {
+    var start = index * ITEMS_PER_BATCH;
+    return allItems.slice(start, start + ITEMS_PER_BATCH);
+  }
+
+  function animateBatch(batchIndex) {
+    var batch = getBatch(batchIndex);
+    var items = track.children;
+
+    for (var i = 0; i < items.length; i++) {
+      items[i].style.transition = "transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease";
+      items[i].style.transitionDelay = String(i * 50) + "ms";
+    }
+
+    requestAnimationFrame(function () {
+      for (var i = 0; i < items.length; i++) {
+        items[i].style.transform = "translateY(20px) scale(0.95)";
+        items[i].style.opacity = "0";
+        items[i].style.filter = "blur(4px)";
+      }
+    });
+
+    var exitDuration = 450 + items.length * 50 + 60;
+    setTimeout(function () {
+      for (var i = 0; i < items.length; i++) {
+        var item = batch[i];
+        if (!item) { items[i].style.display = "none"; continue; }
+        items[i].style.display = "";
+        items[i].style.transition = "none";
+        items[i].style.transitionDelay = "";
+        items[i].style.transform = "translateY(30px) scale(0.92)";
+        items[i].style.opacity = "0";
+        items[i].style.filter = "blur(6px)";
+
+        var icon = items[i].querySelector(".stack-icon");
+        icon.setAttribute("data-tip", item.name);
+        icon.innerHTML = item.svg;
+        var svg = icon.querySelector("svg");
+        if (svg) {
+          svg.removeAttribute("width");
+          svg.removeAttribute("height");
+          svg.style.width = "100%";
+          svg.style.height = "100%";
+        }
+      }
+
+      void track.offsetHeight;
+
+      for (var i = 0; i < items.length; i++) {
+        if (!batch[i]) continue;
+        items[i].style.transition = "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease, filter 0.7s ease";
+        items[i].style.transitionDelay = String(i * 70) + "ms";
+        items[i].style.transform = "translateY(0) scale(1)";
+        items[i].style.opacity = "1";
+        items[i].style.filter = "blur(0)";
+      }
+    }, exitDuration);
+  }
+
+  function nextBatch() {
+    currentBatch = (currentBatch + 1) % maxBatches;
+    animateBatch(currentBatch);
+  }
+
+  function startCarousel() {
+    if (intervalId) clearInterval(intervalId);
+    intervalId = setInterval(nextBatch, INTERVAL);
+  }
+
+  setTimeout(startCarousel, 500);
+})();`}>
+</script>
+
+<style>
+  #stack {
+    border-top: 1px solid var(--color-surface-container-high);
+  }
+
+  .stack-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .stack-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+  }
+
+  .stack-icon {
+    width: 96px;
+    height: 96px;
+    color: var(--color-on-surface-variant);
+    transition: color 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+    position: relative;
+  }
+
+  .stack-icon:hover {
+    color: var(--color-gold);
+    transform: scale(1.15);
+  }
+
+  .stack-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .stack-icon[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-inter);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-gold);
+    opacity: 0;
+    animation: tip-fade 0.25s ease 0.1s forwards;
+    pointer-events: none;
+  }
+
+  @keyframes tip-fade {
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    #stack {
+      padding: var(--spacing-stack-md) var(--spacing-margin-mobile) !important;
+    }
+
+    .stack-track {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      max-width: 340px;
+    }
+
+    .stack-icon {
+      width: 80px;
+      height: 80px;
+    }
+  }
+</style>

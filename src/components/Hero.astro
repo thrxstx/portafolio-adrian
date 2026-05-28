@@ -1,0 +1,368 @@
+---
+import { content } from "../data/content";
+---
+
+<section
+    id="hero"
+    class="hero-section relative flex min-h-screen items-center overflow-hidden"
+>
+    <div
+        class="hero-bg-glow pointer-events-none absolute inset-0 z-l"
+        aria-hidden="true"
+    >
+    </div>
+    <pixel-canvas
+        class="absolute inset-0 z-0"
+        data-gap="8"
+        data-speed="12"
+        data-colors="#C5A059, #dab36a, #e9c176, #a8863e, #7c6530"></pixel-canvas>
+    <div
+        class="hero-overlay absolute inset-0 z-1"
+        style="background: linear-gradient(180deg, rgba(20,19,19,0.92) 0%, rgba(20,19,19,0.35) 40%, rgba(20,19,19,0.45) 60%, rgba(20,19,19,0.92) 100%);"
+    >
+    </div>
+    <div
+        class="hero-content relative z-10 mx-auto flex w-full items-center"
+        style="max-width: var(--spacing-container); padding: 0 var(--spacing-margin-desktop);"
+    >
+        <div class="max-w-3xl" style="padding-bottom: 2rem;">
+            <p
+                class="hero-label mb-4 text-sm font-medium tracking-[0.1em] animate-fade-in"
+                style="font-family: var(--font-inter); color: var(--color-gold); animation-delay: 0.2s;"
+            >
+                <span data-lang="en">{content.hero.greeting.en}</span>
+                <span data-lang="es">{content.hero.greeting.es}</span>
+            </p>
+            <h1
+                class="hero-name mb-4 font-bold leading-[1.1] tracking-[-0.04em] animate-fade-in"
+                style="font-family: var(--font-hanken); font-size: clamp(3rem, 10vw, 5.5rem); animation-delay: 0.4s;"
+            >
+                <span class="hero-name-text">{content.hero.name}</span>
+            </h1>
+            <p
+                class="hero-role mb-6 text-lg font-medium animate-fade-in"
+                style="font-family: var(--font-inter); color: var(--color-gold-dim); font-size: clamp(1rem, 2vw, 1.375rem); letter-spacing: 0.1em; text-transform: uppercase; animation-delay: 0.6s;"
+            >
+                <span data-lang="en">{content.hero.role.en}</span>
+                <span data-lang="es">{content.hero.role.es}</span>
+            </p>
+            <p
+                class="hero-tagline mb-10 max-w-xl leading-relaxed animate-fade-in"
+                style="font-family: var(--font-inter); color: var(--color-on-surface-variant); font-size: clamp(1rem, 1.5vw, 1.125rem); animation-delay: 0.8s;"
+            >
+                <span data-lang="en">{content.hero.tagline.en}</span>
+                <span data-lang="es">{content.hero.tagline.es}</span>
+            </p>
+            <a
+                href="#work"
+                class="hero-cta group inline-flex items-center gap-2 border px-8 py-3 text-sm font-medium tracking-[0.1em] uppercase transition-all duration-300 animate-fade-in"
+                style="font-family: var(--font-inter); border-color: var(--color-gold); color: var(--color-gold); animation-delay: 1s;"
+                data-nav
+            >
+                <span data-lang="en">{content.hero.cta.en}</span>
+                <span data-lang="es">{content.hero.cta.es}</span>
+                <span
+                    class="inline-block transition-transform duration-300 group-hover:translate-x-1"
+                    >→</span
+                >
+            </a>
+        </div>
+        <div class="hero-geometric" aria-hidden="true">
+            <div class="geo-ring geo-ring--large"></div>
+            <div class="geo-ring geo-ring--small"></div>
+            <div class="geo-dot geo-dot--tl"></div>
+            <div class="geo-dot geo-dot--br"></div>
+        </div>
+    </div>
+    <div class="scroll-indicator" data-nav href="#about">
+        <div class="scroll-label">
+            <span>S</span><span>C</span><span>R</span><span>O</span><span
+                >L</span
+            ><span>L</span>
+            <span class="scroll-uscore">_</span>
+            <span>D</span><span>O</span><span>W</span><span>N</span>
+        </div>
+        <div class="scroll-bar"></div>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        background-color: var(--color-background);
+    }
+
+    .hero-name-text {
+        background: linear-gradient(
+            135deg,
+            var(--color-on-surface) 0%,
+            var(--color-gold) 50%,
+            var(--color-on-surface) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% 200%;
+        animation: gradient-shift 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradient-shift {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .hero-bg-glow {
+        background: radial-gradient(
+            ellipse 60% 40% at 50% 40%,
+            rgba(197, 160, 89, 0.08) 0%,
+            transparent 70%
+        );
+    }
+
+    .hero-cta:hover {
+        background-color: var(--color-gold);
+        color: var(--color-on-secondary) !important;
+        border-color: var(--color-gold);
+        box-shadow: 0 0 24px rgba(197, 160, 89, 0.25);
+        transform: translateY(-1px);
+    }
+
+    .hero-geometric {
+        flex: 1;
+        position: relative;
+        height: 360px;
+        pointer-events: none;
+        display: none;
+    }
+
+    .geo-ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .geo-ring--large {
+        width: 280px;
+        height: 280px;
+        animation: geo-spin 30s linear infinite;
+    }
+
+    .geo-ring--large::after {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border-radius: 50%;
+        border: 1px solid rgba(197, 160, 89, 0.08);
+    }
+
+    .geo-ring--small {
+        width: 140px;
+        height: 140px;
+        animation: geo-spin 20s linear infinite reverse;
+        border-color: rgba(197, 160, 89, 0.35);
+    }
+
+    .geo-ring--small::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-gold);
+        opacity: 0.5;
+        box-shadow: 0 0 12px rgba(197, 160, 89, 0.4);
+    }
+
+    .geo-dot {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--color-gold);
+        opacity: 0.3;
+    }
+
+    .geo-dot--tl {
+        top: 12%;
+        left: 22%;
+        animation: geo-pulse 3s ease-in-out infinite;
+    }
+
+    .geo-dot--br {
+        bottom: 18%;
+        right: 18%;
+        animation: geo-pulse 4s ease-in-out 1s infinite;
+    }
+
+    @keyframes geo-spin {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes geo-pulse {
+        0%, 100% { opacity: 0.2; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(2); }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-geometric {
+            display: block;
+        }
+    }
+
+    .scroll-indicator {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: fade-in 2s ease 1.5s both;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+    }
+
+    .scroll-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1;
+    }
+
+    .scroll-label span {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #a8863e;
+    }
+
+    .scroll-label span {
+        animation: text-flicker 1.5s ease-in-out infinite alternate;
+    }
+
+    .scroll-label span:nth-child(1) {
+        animation-delay: 0s;
+    }
+    .scroll-label span:nth-child(2) {
+        animation-delay: 0.08s;
+    }
+    .scroll-label span:nth-child(3) {
+        animation-delay: 0.16s;
+    }
+    .scroll-label span:nth-child(4) {
+        animation-delay: 0.24s;
+    }
+    .scroll-label span:nth-child(5) {
+        animation-delay: 0.32s;
+    }
+    .scroll-label span:nth-child(6) {
+        animation-delay: 0.4s;
+    }
+    .scroll-label span:nth-child(7) {
+        animation-delay: 0.48s;
+    }
+    .scroll-label span:nth-child(8) {
+        animation-delay: 0.56s;
+    }
+    .scroll-label span:nth-child(9) {
+        animation-delay: 0.64s;
+    }
+    .scroll-label span:nth-child(10) {
+        animation-delay: 0.72s;
+    }
+    .scroll-label span:nth-child(11) {
+        animation-delay: 0.8s;
+    }
+
+    .scroll-uscore {
+        opacity: 0.4;
+    }
+
+    .scroll-bar {
+        position: relative;
+        width: 3px;
+        height: 2.5rem;
+        flex-shrink: 0;
+        background: #a8863e;
+        overflow: hidden;
+    }
+
+    .scroll-bar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #f5d78e;
+        box-shadow:
+            0 0 8px #f5d78e,
+            0 0 20px rgba(245, 215, 142, 0.6);
+        animation: bar-glide 1.8s ease-in-out infinite;
+    }
+
+    .scroll-indicator:hover .scroll-bar::after {
+        box-shadow:
+            0 0 12px #f5d78e,
+            0 0 30px rgba(245, 215, 142, 0.8);
+    }
+
+    @keyframes text-flicker {
+        0% {
+            color: #a8863e;
+            text-shadow: none;
+        }
+        100% {
+            color: #f5d78e;
+            text-shadow:
+                0 0 6px rgba(245, 215, 142, 0.6),
+                0 0 16px rgba(245, 215, 142, 0.3);
+        }
+    }
+
+    @keyframes bar-glide {
+        0% {
+            transform: translateY(-100%);
+            height: 30%;
+        }
+        50% {
+            transform: translateY(0);
+            height: 60%;
+        }
+        100% {
+            transform: translateY(100%);
+            height: 30%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-content {
+            padding: 0 var(--spacing-margin-mobile) !important;
+        }
+
+        .scroll-indicator {
+            gap: 0.5rem;
+        }
+
+        .hero-name-text {
+            background: none;
+            -webkit-text-fill-color: var(--color-on-surface);
+        }
+    }
+</style>

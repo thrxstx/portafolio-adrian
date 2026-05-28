@@ -1,0 +1,69 @@
+---
+import { content } from "../data/content";
+---
+
+<section
+    id="contact"
+    class="reveal"
+    style="padding: var(--spacing-stack-xl) var(--spacing-margin-desktop); border-top: 1px solid var(--color-surface-container-high);"
+>
+    <div
+        class="mx-auto text-center"
+        style="max-width: 640px;"
+    >
+        <h2
+            class="section-label mb-6 text-sm font-medium tracking-widest uppercase"
+            style="font-family: var(--font-inter); color: var(--color-gold);"
+        >
+            <span data-lang="en">{content.contact.title.en}</span>
+            <span data-lang="es">{content.contact.title.es}</span>
+        </h2>
+
+        <h2
+            class="contact-heading mb-6 font-bold leading-[1.15] tracking-[-0.04em]"
+        >
+            <span data-lang="en">{content.contact.heading.en}</span>
+            <span data-lang="es">{content.contact.heading.es}</span>
+        </h2>
+
+        <p
+            class="contact-desc mb-10 text-base leading-relaxed"
+            style="font-family: var(--font-inter); color: var(--color-on-surface-variant);"
+        >
+            <span data-lang="en">{content.contact.description.en}</span>
+            <span data-lang="es">{content.contact.description.es}</span>
+        </p>
+
+        <a
+            href={`mailto:${content.contact.email}`}
+            class="contact-cta group inline-flex items-center gap-2 border px-8 py-3 text-sm font-medium tracking-widest uppercase transition-all duration-300"
+            style="font-family: var(--font-inter); border-color: var(--color-gold); color: var(--color-gold);"
+        >
+            <svg viewBox="0 49.4 512 399.42" class="h-5 w-5"><g fill="none" fill-rule="evenodd"><g fill-rule="nonzero"><path fill="#4285f4" d="M34.91 448.818h81.454V251L0 163.727V413.91c0 19.287 15.622 34.91 34.91 34.91z"/><path fill="#34a853" d="M395.636 448.818h81.455c19.287 0 34.909-15.622 34.909-34.909V163.727L395.636 251z"/><path fill="#fbbc04" d="M395.636 99.727V251L512 163.727v-46.545c0-43.142-49.25-67.782-83.782-41.891z"/></g><path fill="#ea4335" d="M116.364 251V99.727L256 204.455 395.636 99.727V251L256 355.727z"/><path fill="#c5221f" fill-rule="nonzero" d="M0 117.182v46.545L116.364 251V99.727L83.782 75.291C49.25 49.4 0 74.04 0 117.18z"/></g></svg>
+            <span data-lang="en">Send Email</span>
+            <span data-lang="es">Enviar Email</span>
+        </a>
+    </div>
+</section>
+
+<style>
+    .contact-heading {
+        font-family: var(--font-hanken);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: var(--color-on-surface);
+    }
+
+    .contact-cta:hover {
+        background-color: var(--color-gold);
+        color: var(--color-on-secondary) !important;
+        border-color: var(--color-gold);
+        box-shadow: 0 0 24px rgba(197, 160, 89, 0.25);
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 767px) {
+        #contact {
+            padding: var(--spacing-stack-lg) var(--spacing-margin-mobile) !important;
+        }
+    }
+</style>

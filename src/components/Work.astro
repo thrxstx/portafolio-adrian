@@ -1,0 +1,114 @@
+---
+import { content } from "../data/content";
+---
+
+<section
+  id="work"
+  class="reveal"
+  style="padding: var(--spacing-stack-xl) var(--spacing-margin-desktop);"
+>
+  <div class="mx-auto" style="max-width: var(--spacing-container);">
+    <h2
+      class="section-label mb-2 text-sm font-medium tracking-[0.1em] uppercase"
+      style="font-family: var(--font-inter); color: var(--color-gold);"
+    >
+      <span data-lang="en">{content.work.title.en}</span>
+      <span data-lang="es">{content.work.title.es}</span>
+    </h2>
+    <p
+      class="section-subtitle mb-12"
+      style="font-family: var(--font-inter); color: var(--color-on-surface-variant);"
+    >
+      <span data-lang="en">{content.work.subtitle.en}</span>
+      <span data-lang="es">{content.work.subtitle.es}</span>
+    </p>
+
+    <div class="work-grid grid gap-8" style="grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));">
+      {content.work.projects.map((project) => {
+          return (
+          <a
+            href={`/projects/${project.slug}`}
+            class="work-card group relative block overflow-hidden border transition-all duration-500"
+            style="border-color: var(--color-surface-container-high);"
+            transition:name={`project-${project.slug}`}
+          >
+            <div class="work-card-media relative aspect-[4/3] overflow-hidden" style="background-color: var(--color-surface-container-low);">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="work-card-body relative z-20 p-6" style="background-color: var(--color-surface);">
+              <div class="mb-3 flex flex-wrap gap-2">
+                {project.technologies.slice(0, 3).map((tech) => (
+                  <span
+                    class="tech-chip border px-2 py-1 text-xs font-medium tracking-[0.05em] uppercase"
+                    style="font-family: var(--font-inter); border-color: var(--color-surface-container-high); color: var(--color-on-surface-variant);"
+                  >
+                    {tech}
+                  </span>
+                ))}
+                {project.technologies.length > 3 && (
+                  <span
+                    class="tech-chip border px-2 py-1 text-xs font-medium tracking-[0.05em] uppercase"
+                    style="font-family: var(--font-inter); border-color: var(--color-surface-container-high); color: var(--color-on-surface-variant);"
+                  >
+                    +{project.technologies.length - 3}
+                  </span>
+                )}
+              </div>
+              <h3
+                class="work-card-title mb-2 text-xl font-semibold transition-colors duration-300"
+                style="font-family: var(--font-hanken); color: var(--color-on-surface);"
+              >
+                {project.title}
+              </h3>
+              <p
+                class="work-card-desc mb-4 text-sm leading-relaxed"
+                style="font-family: var(--font-inter); color: var(--color-on-surface-variant);"
+              >
+                <span data-lang="en">{project.description.en}</span>
+                <span data-lang="es">{project.description.es}</span>
+              </p>
+              <span
+                class="work-card-link inline-flex items-center gap-1 text-sm font-medium tracking-[0.1em] uppercase transition-all duration-300"
+                style="font-family: var(--font-inter); color: var(--color-gold);"
+              >
+                <span data-lang="en">{content.work.viewProject.en}</span>
+                <span data-lang="es">{content.work.viewProject.es}</span>
+                <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  #work {
+    border-top: 1px solid var(--color-surface-container-high);
+  }
+
+  .work-card:hover {
+    border-color: var(--color-gold) !important;
+    transform: translateY(-4px);
+  }
+
+  .work-card:hover .work-card-title {
+    color: var(--color-gold) !important;
+  }
+
+  @media (max-width: 768px) {
+    #work {
+      padding: var(--spacing-stack-lg) var(--spacing-margin-mobile) !important;
+    }
+
+    .work-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

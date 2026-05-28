@@ -1,0 +1,79 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import { ClientRouter } from "astro:transitions";
+
+const { title } = Astro.props;
+---
+
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="Adrian David — Software Developer Portfolio" />
+    <title>{title ?? 'Adrian David — Portfolio'}</title>
+    <ClientRouter />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="antialiased">
+    <Nav />
+    <main transition:animate="morph">
+      <slot />
+    </main>
+    <script>
+      import "../components/pixel-canvas.js";
+    </script>
+    <script>
+      function initReveal() {
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+      }
+      initReveal();
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
+    <script is:inline>
+      function setLang(lang) {
+        document.documentElement.setAttribute('data-lang', lang);
+        document.querySelectorAll('.lang-btn').forEach(function (b) {
+          if (b.getAttribute('data-lang') === lang) {
+            b.setAttribute('data-active', '');
+          } else {
+            b.removeAttribute('data-active');
+          }
+        });
+      }
+      function initLang() {
+        var saved = localStorage.getItem('lang') || 'en';
+        setLang(saved);
+      }
+      initLang();
+      document.addEventListener('astro:page-load', initLang);
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.lang-btn');
+        if (btn) {
+          var lang = btn.getAttribute('data-lang');
+          if (lang) {
+            localStorage.setItem('lang', lang);
+            setLang(lang);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
