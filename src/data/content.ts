@@ -21,12 +21,14 @@ export const content = {
     ],
   },
   hero: {
-    greeting: { en: "Hi, I'm", es: "Hola, soy" },
     name: "Adrian David",
-    role: { en: "Software Developer", es: "Desarrollador de Software" },
+    valueProp: {
+      en: "I turn complexity into clarity",
+      es: "Convierto lo complejo en algo simple",
+    },
     tagline: {
-      en: "I craft digital experiences that live at the intersection of design and engineering — turning complex problems into elegant, performant solutions.",
-      es: "Creo experiencias digitales que viven en la intersección del diseño y la ingeniería — transformando problemas complejos en soluciones elegantes y eficientes.",
+      en: "Clean code, thoughtful design, real impact.",
+      es: "Código limpio, diseño consciente, impacto real.",
     },
     cta: { en: "View my work", es: "Ver mi trabajo" },
   },
